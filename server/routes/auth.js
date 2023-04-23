@@ -11,6 +11,7 @@ module.exports = (db) => {
     return res.render("welcome");
   });
 
+
   ///////////////Helper functions /////////////
   const getUserWithEmail = function(email) {
     return db.query(`SELECT * FROM users WHERE users.email = $1;`, [email])
@@ -31,8 +32,10 @@ module.exports = (db) => {
   const login = function(email, password) {
     return getUserWithEmail(email).then((user) => {
       if (bcrypt.compareSync(password, user.password)) {
+        console.log({user})
         return user;
       }
+      console.log("RETURNING NULL")
       return null;
     });
   };
@@ -42,6 +45,7 @@ module.exports = (db) => {
   // Login Routes
   router.post("/login", (req, res) => {
     const { email, password } = req.body;
+    console.log('HELLLO WORLD', {email}, {password});
     login(email, password)
       .then((user) => {
         if (!user) {
@@ -50,9 +54,11 @@ module.exports = (db) => {
             .send("Invalid login, please <a href='/'>try again</a>");
           return;
         }
-        req.session.userID = user.id;
-        req.session.userEmail = user.email;
-        return res.redirect("/index");
+        res.status(200)
+        res.send("Successfull Sign in")
+        // req.session.userID = user.id;
+        // req.session.userEmail = user.email;
+        // return res.redirect("/index");
       })
       .catch((e) => {
         res
@@ -90,6 +96,7 @@ console.log("hello world");
             [newEmail, newPassword]
           )
             .then(() => {
+              res.status(200)
               res.send("You have registered successfully. Please sign in");
 
             })
