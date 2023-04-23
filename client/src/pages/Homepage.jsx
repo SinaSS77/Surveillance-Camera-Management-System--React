@@ -1,10 +1,10 @@
+import { useState } from "react";
 import AuthForm from "../components/forms/AuthForm";
 
 export default function HomePage() {
+    const [formType, setFormType] = useState('login')
+    
     return (
-        <>
-            <AuthForm formType={'register'}></AuthForm>
-            <AuthForm formType={'login'}></AuthForm>
-        </>
+        <AuthForm formType={formType} setFormType={setFormType}></AuthForm>
     );
   }

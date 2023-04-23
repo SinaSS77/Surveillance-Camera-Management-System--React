@@ -2,8 +2,9 @@
 import axios from "axios";
 import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { TextField, Button } from "@material-ui/core";
-import { useHistory } from 'react-router-dom';
+import { TextField, Button, Typography } from "@material-ui/core";
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const useAuthFormStyles = makeStyles((theme) => ({
@@ -11,6 +12,7 @@ const useAuthFormStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    marginTop: '200px',
   },
   textField: {
     margin: theme.spacing(1),
@@ -20,14 +22,15 @@ const useAuthFormStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AuthForm({formType}) {
+export default function AuthForm({formType, setFormType}) {
   const classes = useAuthFormStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const buttonText = formType === "login" ? "Sign In" : "Sign Up"
   const apiUrl = formType === "login" ? "login" : "register"
+  const formTypeText = formType === "login" ? {text: "Not a user? ", textClickable: "Register"} : {text: "Already a user? ", textClickable: "Login"}
 
   const handleAuthBtnClick = (e) => {
     const authInfo = {
@@ -35,14 +38,22 @@ export default function AuthForm({formType}) {
     };
     axios.post(`http://localhost:8080/api/auth/${apiUrl}`, authInfo)
       .then(response => {
-        console.log(response.data);
-        console.log(response.status);
+        if (response.status === 200){
+          navigate('/dashboard')
+        }
+        // console.log(response.data);
+        // console.log(response.status);
       })
       .catch(error => {
         console.error(error);
       });
     console.log("SUBMITTED", { email }, { password });
   };
+
+  const switchFormType = () => {
+    const newFormType = formType === "login" ? "register" : "login"
+    setFormType(newFormType)
+  }
 
   return (
     <div className={classes.form}>
@@ -70,6 +81,12 @@ export default function AuthForm({formType}) {
       >
         {buttonText}
       </Button>
+      <Typography variant="body2" align="center">
+        {formTypeText.text}
+        <span onClick={switchFormType} style={{ textDecoration: 'underline', cursor: 'pointer' }}>
+          {formTypeText.textClickable}
+        </span>
+      </Typography>
     </div>
 
     //   <div >
