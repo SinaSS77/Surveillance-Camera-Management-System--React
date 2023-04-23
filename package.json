@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/SinaSS77/Surveillance-Camera-Management-System--React/issues"
   },
-  "homepage": "https://github.com/SinaSS77/Surveillance-Camera-Management-System--React#readme"
+  "homepage": "https://github.com/SinaSS77/Surveillance-Camera-Management-System--React#readme",
+  "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3"
+  }
 }
