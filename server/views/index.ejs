@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SCM System</title>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+
+
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script defer src="../scripts/app.js"></script>
+
+  </head>
+
+  <body>
+    <header class="header">
+      <h1>Surveillance Camera Management System</h1>
+      <i id="plusSign" class="fa-solid fa-plus"></i>
+      <nav class="navBar">
+        <label id="welcomeTag">Welcome back, <span><%= userEmail %></span></label>
+        <button class="sub" id="updateBt">Update Profile</button>
+        <form id="logOut" action="/index/logout" method="POST">
+          <button class="sub" type="submit">Logout</button></form>
+      </nav>
+    </header>
+
+    <main class="main">
+      <div class="leftSidebar">
+        <div id="leftSideList">
+          <span class="dot1"></span>
+          <label class="textBox">To Watch<span class="count"><%= cats.watch %></span></label>
+          <span class="dot2"></span>
+          <label class="textBox">To Eat<span class="count"><%= cats.eat %></span></label>
+          <span class="dot3"></span>
+          <label class="textBox">To Read<span class="count"><%= cats.read %></span></label>
+          <span class="dot4"></span>
+          <label class="textBox">To Buy<span class="count"><%= cats.buy %></span></label>
+          <span class="dot5"></span>
+          <label class="textBox">Other<span class="count"><%= cats.other %></span></label>
+        </div>
+      </div>
+
+      <div class="contents">
+        <div>
+          <h3 id="pushPlus">Press + To add a new task</h3>
+        </div>
+        <div class="taskDiv">
+          <form class="taskForm" action="/api/tasks/create" method="POST">
+            <label class="newTask">New Task :</label>
+            <textarea class="newItem" type="text" name="newTask"></textarea>
+            <br />
+            <button type="submit" class="submit">Add</button>
+          </form>
+        </div>
+
+        <div class="update">
+          <form class ="pro-update" action="/index/update" method="POST">
+            <label class="update-profile">Update profile:</label>
+            <div class="form">
+            <input name="email" type="email" placeholder="New email"/>
+            <input name="password" type="password" placeholder="New password"/>
+            <button class="sub" type="submit">Submit</button>
+            </div>
+            </form>
+        </div>
+        <section id="task-container">
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
