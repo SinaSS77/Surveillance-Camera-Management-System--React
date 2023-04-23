@@ -1,8 +1,9 @@
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.scss';
 import Navbar from './components/navbar/Navbar';
 import CameraCard from './components/cards/Cards';
-import Login from './components/login/Login';
+import HomePage from './pages/Homepage';
 
 
 
@@ -11,7 +12,22 @@ function App() {
     <>
   {/* <Navbar></Navbar>
   <CameraCard></CameraCard> */}
- <Login></Login>
+
+
+    <Router>
+      <Routes>
+        <Route 
+          exact
+          path='/'
+          element={</HomePage>}
+        />
+        <Route 
+          exact
+          path='/dashboard'
+          element={</CameraCard>}
+        />
+      </Routes>
+    </Router>
   </>
   );
 }
