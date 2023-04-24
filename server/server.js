@@ -31,9 +31,11 @@ app.use(
 
 const authRoutes = require("./routes/auth");
 const homeRoutes = require("./routes/home");
+const cameraRoutes = require("./routes/cameras");
 
 app.use("/api/auth", authRoutes(db));
 app.use("/api/home", homeRoutes(db));
+app.use("/api/cameras", cameraRoutes(db));
 
 app.listen(PORT, () => {
   
