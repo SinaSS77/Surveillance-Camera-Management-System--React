@@ -1,4 +1,3 @@
-// import "./Login.scss"
 import axios from "axios";
 import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
@@ -23,7 +22,7 @@ const useAuthFormStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AuthForm({ formType, setFormType }) {
+export default function AuthForm({ formType, setFormType, setLoggedInUser }) {
   const classes = useAuthFormStyles();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -41,12 +40,13 @@ export default function AuthForm({ formType, setFormType }) {
       .then(response => {
         if (response.status === 200) {
           const token = response.data;
-          Cookies.set('token', token, { httpOnly: true });
           if (token) {
+            Cookies.set('token', token, { httpOnly: true });
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
           } else {
             axios.defaults.headers.common['Authorization'] = null;
           }
+          setLoggedInUser(email);
           navigate('/dashboard');
         }
       })

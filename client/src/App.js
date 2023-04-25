@@ -5,13 +5,15 @@ import Navbar from './components/navbar/Navbar';
 import CameraCard from './components/cards/VideoCard';
 import HomePage from './pages/Homepage';
 import Dashboard from './pages/Dashboard';
+import { useState } from 'react';
 
 
 
 function App() {
+  const [ loggedInUser , setLoggedInUser ] = useState('')
   return (
     <>
-      <Navbar></Navbar>
+      <Navbar email={loggedInUser}></Navbar>
       {/* <CameraCard></CameraCard> */}
 
       <div className=' mt-[150px] mr-[100px]'>
@@ -20,7 +22,7 @@ function App() {
             <Route
               exact
               path='/'
-              element={<HomePage />}
+              element={<HomePage setLoggedInUser={setLoggedInUser}/>}
             />
             <Route
               exact

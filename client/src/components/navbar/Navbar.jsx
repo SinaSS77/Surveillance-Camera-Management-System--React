@@ -1,7 +1,7 @@
 import React from "react";
 import profileImage from "../../assets/profile.png";
 
-const Navbar = () => {
+const Navbar = ({ email }) => {
   return (
     <div className=" w-full flex items-center my-auto py-5 fixed top-0 z-20 justify-between bg-slate-500">
       <div >
@@ -14,7 +14,7 @@ const Navbar = () => {
           alt=""
         />
         <div className="item-center my-auto gap-4 text-[1.2rem] ">
-          <label className=" items-center m-10 ml-0">sina@sina.com</label>
+          <label className=" items-center m-10 ml-0">{email}</label>
           <label className="  text-red-600 m-10 hover:cursor-pointer">Logout</label>
         </div>
 
