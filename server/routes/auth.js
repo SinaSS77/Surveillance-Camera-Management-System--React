@@ -1,4 +1,5 @@
 const express = require("express");
+const jwt = require('jsonwebtoken');
 const router = express.Router();
 const bcrypt = require("bcrypt");
 
@@ -32,10 +33,8 @@ module.exports = (db) => {
   const login = function(email, password) {
     return getUserWithEmail(email).then((user) => {
       if (bcrypt.compareSync(password, user.password)) {
-        console.log({user})
         return user;
       }
-      console.log("RETURNING NULL")
       return null;
     });
   };
@@ -45,7 +44,6 @@ module.exports = (db) => {
   // Login Routes
   router.post("/login", (req, res) => {
     const { email, password } = req.body;
-    console.log('HELLLO WORLD', {email}, {password});
     login(email, password)
       .then((user) => {
         if (!user) {
@@ -54,11 +52,9 @@ module.exports = (db) => {
             .send("Invalid login, please <a href='/'>try again</a>");
           return;
         }
-        res.status(200)
-        res.send("Successfull Sign in")
-        // req.session.userID = user.id;
-        // req.session.userEmail = user.email;
-        // return res.redirect("/index");
+        res.status(200);
+        const token = jwt.sign({ userId: user.id, email: user.email }, 'secretKey');
+        res.json(token);
       })
       .catch((e) => {
         res
@@ -69,12 +65,12 @@ module.exports = (db) => {
         return;
       });
   });
-  
+
 
   // Register Route
   router.post("/register", (req, res) => {
 
-console.log("hello world");
+    console.log("hello world");
 
     const user = req.body;
     user.password = bcrypt.hashSync(user.password, 10);
@@ -82,7 +78,7 @@ console.log("hello world");
     const newPassword = user.password;
     db.query(`SELECT * FROM users WHERE email = $1;`, [newEmail])
       .then((result) => {
-        
+
         if (result.rows.length > 0) {
           return res
             .status(400)
@@ -96,12 +92,12 @@ console.log("hello world");
             [newEmail, newPassword]
           )
             .then(() => {
-              res.status(200)
+              res.status(200);
               res.send("You have registered successfully. Please sign in");
 
             })
             .catch((err) => {
-              console.log("it is the catch part",err);
+              console.log(err);
             });
         };
       }
@@ -110,4 +106,4 @@ console.log("hello world");
 
   return router;
 
-}
+};

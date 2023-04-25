@@ -1,5 +1,5 @@
 const express = require("express");
-const dotenv = require("dotenv").config()
+const dotenv = require("dotenv").config();
 const db = require("./db/connection");
 const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 8080;
@@ -17,25 +17,15 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static("public"));
 
-app.use(
-  cookieSession({
-    name: "session",
-    keys: ["abcEasyAs123"],
-  })
-);
-
-// app.use((req, res, next) => {
-//   res.setHeader('Access-Control-Allow-Origin', '*');
-//   next();
-// });
-
 const authRoutes = require("./routes/auth");
 const homeRoutes = require("./routes/home");
+const camerasRoutes = require("./routes/cameras");
 
 app.use("/api/auth", authRoutes(db));
 app.use("/api/home", homeRoutes(db));
+app.use("/api/cameras", camerasRoutes(db));
 
 app.listen(PORT, () => {
-  
+
   console.log(`App listening on port ${PORT}`);
 });
