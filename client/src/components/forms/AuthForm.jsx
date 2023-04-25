@@ -56,9 +56,7 @@ export default function AuthForm({formType, setFormType}) {
   }
 
   return (
-    <div className=" flex bg-[#EAEAEA] min-h-full align-middle flex-col justify-center">
     <div className={classes.form}>
-    <h2 className=" text-[2rem] mb-[100px] drop-shadow-md ">Welcome To <span className=" text-green-600">SCM SYSTEM</span></h2>
       <TextField
         label="Email"
         variant="outlined"
@@ -73,13 +71,12 @@ export default function AuthForm({formType, setFormType}) {
         className={classes.textField}
         value={password}
         onChange={(event) => setPassword(event.target.value)}
-        
       />
       <Button
         type="submit"
         variant="contained"
-        color="gray"
-        className=" mt-9 "
+        color="primary"
+        className={classes.button}
         onClick={handleAuthBtnClick}
       >
         {buttonText}
@@ -91,6 +88,29 @@ export default function AuthForm({formType, setFormType}) {
         </span>
       </Typography>
     </div>
-    </div>
+
+    //   <div >
+    //     <div class="welcome">
+    //       <h2 className=" text-[2em]">Welcome to <span>  Surveillance Camera Management System</span> !</h2>
+    //     </div>
+    //     <div className="flex justify-between text-[25px] px-[60px] mt-6">
+    //       <h4 class="reg">Register</h4>
+    //       <h4 class="highlight">|</h4>
+    //       <h4 class="sig">Sign in</h4>
+    //     </div>
+    //     <div className="flex justify-between  mt-6 ">
+    //     <form class="reg-form" action="/register" method="POST">
+    //       <input name="email" type="email" placeholder="Email" />
+    //       <input name="password" type="password" placeholder="Password" />
+    //       <button class="sub" type="submit">Register</button>
+    //     </form>
+    //     <form class="sig-form" action="/login" method="POST">
+    //       <input name="email" type="email" placeholder="Email" />
+    //       <input name="password" type="password" placeholder="Password" />
+    //       <button class="sub" type="submit">Login</button>
+    //     </form>
+    //     </div>
+
+    // </div>
   );
 }
