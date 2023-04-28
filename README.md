@@ -55,7 +55,7 @@ _Logging Page_
 _Camera views with user3_
 !['Bigger screen mode'](https://github.com/SinaSS77/Surveillance-Camera-Management-System--React/blob/main/Docs/BiggerScreenView.png)
 _Bigger screen mode_
-!['Warning and reset button on user2 view'](https://github.com/SinaSS77/Surveillance-Camera-Management-System--React/blob/main/Docs/Warning.png)
+!['Warning and reset button on user2 view'](https://github.com/SinaSS77/Surveillance-Camera-Management-System--React/blob/main/Docs/Waning.png)
 _Warning and reset button on user2 view_
 
 
