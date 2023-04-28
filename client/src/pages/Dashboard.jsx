@@ -132,7 +132,7 @@ export default function Dashboard({}) {
                         <Dialog open={showWarning} onClose={handleClose}>
                             <DialogTitle onClose={handleClose}>Warning!</DialogTitle>
                                 <DialogContent>
-                                <p>Please click the button below to restart</p>
+                                <p>One of cameras is offline, Please click the button below to restart</p>
                                 </DialogContent>
                                 <DialogActions>
                                 <Button onClick={handleRestartCameras}>Restart Cameras</Button>
