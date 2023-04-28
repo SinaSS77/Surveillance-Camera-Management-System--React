@@ -22,7 +22,7 @@ const useAuthFormStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AuthForm({ formType, setFormType, setLoggedInUser }) {
+export default function AuthForm({ formType, setFormType, setLoggedInUserEmail, setUserIsLoggedIn }) {
   const classes = useAuthFormStyles();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -46,7 +46,8 @@ export default function AuthForm({ formType, setFormType, setLoggedInUser }) {
           } else {
             axios.defaults.headers.common['Authorization'] = null;
           }
-          setLoggedInUser(email);
+          setUserIsLoggedIn(true)
+          setLoggedInUserEmail(email);
           navigate('/dashboard');
         }
       })
@@ -61,7 +62,19 @@ export default function AuthForm({ formType, setFormType, setLoggedInUser }) {
   };
 
   return (
-    <div className={classes.form}>
+    <>
+    <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
+    <div className="w-full p-6 m-auto bg-white rounded-md shadow-xl shadow-rose-600/40 ring ring-2 ring-purple-600 lg:max-w-xl">
+      <Typography variant="h3" align="center" sx={{
+        fontSize: '3rem',
+        fontWeight: '600',
+        textAlign: 'center',
+        color: 'purple.700',
+        textDecoration: 'underline wavy',
+        textTransform: 'uppercase'
+      }}>
+        Sign in
+      </Typography>
       <TextField
         label="Email"
         variant="outlined"
@@ -93,5 +106,68 @@ export default function AuthForm({ formType, setFormType, setLoggedInUser }) {
         </span>
       </Typography>
     </div>
-  );
+  </div>
+{/* // ); */}
+ {/* <div className="relative flex flex-col justify-center min-h-screen overflow-hidden z-20">
+<div className="w-full p-6 m-auto bg-white rounded-md shadow-xl shadow-rose-600/40 ring ring-2 ring-purple-600 lg:max-w-xl">
+  <h1 className="text-3xl font-semibold text-center text-purple-700 underline uppercase decoration-wavy">
+    Sign in
+  </h1>
+  <form className="mt-6">
+    <div className="mb-2">
+      <label
+        htmlFor="email"
+        className="block text-sm font-semibold text-gray-800"
+      >
+        Email
+      </label>
+      <input
+        type="email"
+        id="email"
+        className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+      />
+    </div>
+    <div className="mb-2">
+      <label
+        htmlFor="password"
+        className="block text-sm font-semibold text-gray-800"
+      >
+        Password
+      </label>
+      <input
+        type="password"
+        id="password"
+        className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+        value={password}
+        onChange={(event) => setPassword(event.target.value)}
+      />
+    </div>
+ 
+    <div className="mt-6"> */}
+
+      {/* <Button
+      className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
+        type="submit"
+        variant="contained"
+        color="primary"
+        // className={classes.button}
+        onClick={handleAuthBtnClick}
+      >
+        {buttonText}
+      </Button>
+      <Typography variant="body2" align="center">
+        {formTypeText.text}
+        <span onClick={switchFormType} className=" mt-8" style={{ textDecoration: 'underline', cursor: 'pointer', marginTop: '20px' }}>
+          {formTypeText.textClickable}
+        </span>
+      </Typography>
+    </div>
+  </form>
+
+</div>
+</div> */}
+</>
+);
 }

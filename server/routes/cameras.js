@@ -1,79 +1,98 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db/connection");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-
-module.exports = () => {
+module.exports = (db) => {
   router.get("/", (req, res) => {
-    const token = req.headers.authorization.split(' ')[1];
-    jwt.verify(token, 'secretKey', (err, decodedToken) => {
+    const token = req.headers.authorization.split(" ")[1];
+    jwt.verify(token, "secretKey", (err, decodedToken) => {
       if (err) {
-        return res.status(401).json({ error: 'Invalid token' });
+        return res.status(401).json({ error: "Invalid token" });
       } else {
         const userId = decodedToken.userId;
-        db.query(`SELECT *
+        db.query(
+          `SELECT *
         FROM cameras
-        WHERE user_id = $1;`, [userId])
-          .then((results) => {
-            console.log({ results });
-            res.status(200).json(results.rows);
-          });
+        WHERE user_id = $1;`,
+          [userId]
+        ).then((results) => {
+          res.status(200).json(results.rows);
+        });
       }
     });
   });
 
   router.post("/setOffline", (req, res) => {
-    console.log("HITTING SET OFFLINE");
     const cameraId = req.body.cameraId;
-    const token = req.headers.authorization.split(' ')[1];
-    jwt.verify(token, 'secretKey', (err, decodedToken) => {
+    const token = req.headers.authorization.split(" ")[1];
+    jwt.verify(token, "secretKey", (err, decodedToken) => {
       if (err) {
-        return res.status(401).json({ error: 'Invalid token' });
+        return res.status(401).json({ error: "Invalid token" });
       } else {
         const userId = decodedToken.userId;
-        console.log("IN ELSE");
-        db.query(`UPDATE cameras SET status = 0
-        WHERE user_id = $1 AND id = $2;`, [userId, cameraId])
-          .then(() => {
-            db.query(`SELECT *
+        db.query(
+          `UPDATE cameras SET status = 0
+        WHERE user_id = $1 AND id = $2;`,
+          [userId, cameraId]
+        ).then(() => {
+          db.query(
+            `SELECT *
                 FROM cameras
-                WHERE user_id = $1;`, [userId])
-              .then((results) => {
-                res.status(200).json(results.rows);
-              });
+                WHERE user_id = $1;`,
+            [userId]
+          ).then((results) => {
+            res.status(200).json(results.rows);
           });
+        });
       }
     });
   });
 
   router.get("/checkStatus", (req, res) => {
-    console.log("HITTING CHECK STATUS");
-    const token = req.headers.authorization.split(' ')[1];
-    jwt.verify(token, 'secretKey', (err, decodedToken) => {
+    const token = req.headers.authorization.split(" ")[1];
+    jwt.verify(token, "secretKey", (err, decodedToken) => {
       if (err) {
-        return res.status(401).json({ error: 'Invalid token' });
+        return res.status(401).json({ error: "Invalid token" });
       } else {
         const userId = decodedToken.userId;
-        db.query(`SELECT *
+        db.query(
+          `SELECT *
         FROM cameras
-        WHERE user_id = $1;`, [userId])
-          .then((results) => {
-            const offlineCameras = [];
-            results.rows.forEach(camera => {
-              if (camera.status === 0) {
-                offlineCameras.push(camera);
-              }
-            });
-            if (offlineCameras.length === 0) {
-              res.status(200).send("All Cameras Working");
-            } else {
-              res.status(207).json(offlineCameras);
-            }
-          });
+        WHERE user_id = $1 and status = 0;`,
+          [userId]
+        ).then((results) => {
+          console.log(results.rows);
+          if (results?.rows.length === 0){
+            console.log('in if');
+            res.status(200).send("All Cameras are working")
+          } else {
+            console.log('in else');
+            res.status(204).send("Some cameras are down!")
+          }
+        });
       }
     });
   });
 
+  router.post("/restartCameras", (req, res) => {
+    console.log("Hitting restart");
+    const token = req.headers.authorization.split(" ")[1];
+    jwt.verify(token, "secretKey", (err, decodedToken) => {
+      if (err) {
+        return res.status(401).json({ error: "Invalid token" });
+      } else {
+        const userId = decodedToken.userId;
+        db.query(
+          `UPDATE cameras SET status = 1
+        WHERE user_id = $1 RETURNING *;`,
+          [userId]
+        ).then((results) => {
+          console.log(results.rows);
+          res.status(200).json(results.rows);
+        });
+      }
+    });
+  });
   return router;
 };

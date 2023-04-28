@@ -69,9 +69,6 @@ module.exports = (db) => {
 
   // Register Route
   router.post("/register", (req, res) => {
-
-    console.log("hello world");
-
     const user = req.body;
     user.password = bcrypt.hashSync(user.password, 10);
     const newEmail = user.email;
@@ -102,6 +99,18 @@ module.exports = (db) => {
         };
       }
       );
+  });
+
+  // logout
+  router.post("/logout", (req, res) => {
+    req.session.destroy((error) => {
+      if (error) {
+        console.log(error);
+        res.status(500).send("Error clearing session");
+      } else {
+        res.sendStatus(200);
+      }
+    });
   });
 
   return router;
