@@ -101,9 +101,9 @@ export default function Dashboard({}) {
                     }}>
                         Camera Health:{' '}
                         {camerasHealth ? (
-                            <CheckCircleIcon sx={{ color: 'green', ml: 1 }} />
+                            <CheckCircleIcon sx={{ color: 'green', ml: 1, fontSize: 90,}} />
                         ) : (
-                            <CancelIcon sx={{ color: 'red', ml: 1 }} />
+                            <CancelIcon sx={{ color: 'red', ml: 1, fontSize: 90, }} />
                         )}
                     </Typography>
                 {camerasData.map((camera, i) => (

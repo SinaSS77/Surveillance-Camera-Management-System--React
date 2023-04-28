@@ -22,6 +22,7 @@ To setup the app,
 
 ## Setup Database
 
+- Install PostgreSQL using Homebrew (Mac)
 - Set a .env file using the .env.example provided in the server folder
 - Run psql in the server directory using `psql -d <project name in .env> -U <username in .env>`
 - Create tables in database using `\i <project path>/server/db/schema/<file name>.sql`
@@ -40,6 +41,11 @@ npm run local
 ```sh
 npm start
 ```
+and then you can log in with either these user names:
+1- test1@gmail.com
+2- test2@gmail.com
+3- test3@gmail.com
+and password is "test" for all of them
 
 ## ScreenShots
 
