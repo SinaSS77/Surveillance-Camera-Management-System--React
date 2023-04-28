@@ -51,11 +51,11 @@ and password is "test" for all of them
 
 !['Logging Page'](https://github.com/SinaSS77/Surveillance-Camera-Management-System--React/blob/main/Docs/LogIn.png)
 _Logging Page_
-!['Camera views with user3'](https://github.com/SinaSS77/Surveillance-Camera-Management-System--React/blob/main/Docs/User3View.png)
+!['Camera views with user3'](https://github.com/SinaSS77/Surveillance-Camera-Management-System--React/blob/main/Docs/User3ViewM.png)
 _Camera views with user3_
-!['Bigger screen mode'](https://github.com/SinaSS77/Surveillance-Camera-Management-System--React/blob/main/Docs/BiggerScreenView.png)
+!['Bigger screen mode'](https://github.com/SinaSS77/Surveillance-Camera-Management-System--React/blob/main/Docs/BiggerScreenViewM.png)
 _Bigger screen mode_
-!['Warning and reset button on user2 view'](https://github.com/SinaSS77/Surveillance-Camera-Management-System--React/blob/main/Docs/Waning.png)
+!['Warning and reset button on user2 view'](https://github.com/SinaSS77/Surveillance-Camera-Management-System--React/blob/main/Docs/WaningM.png)
 _Warning and reset button on user2 view_
 
 
