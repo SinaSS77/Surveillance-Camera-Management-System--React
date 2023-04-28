@@ -2,22 +2,19 @@ import React from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import profileImage from "../../assets/profile.png";
+
 
 const Navbar = ({ email, userIsLoggedIn, setUserIsLoggedIn }) => {
   const navigate = useNavigate();
 
 
   const handleLogout = async () => {
-    // const logoutData = await axios.post("http://localhost:8080/api/auth/logout");
-    // if (logoutData){
+
       Cookies.remove('token')
       axios.defaults.headers.common['Authorization'] = null;
       setUserIsLoggedIn(false)
       navigate('/');
-    // } else {
-    //   console.log("Error in Logout, try again.");
-    // }
+
   };
 
   return (

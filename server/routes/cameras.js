@@ -64,10 +64,8 @@ module.exports = (db) => {
         ).then((results) => {
           console.log(results.rows);
           if (results?.rows.length === 0){
-            console.log('in if');
             res.status(200).send("All Cameras are working")
           } else {
-            console.log('in else');
             res.status(204).send("Some cameras are down!")
           }
         });
@@ -76,8 +74,7 @@ module.exports = (db) => {
   });
 
   router.post("/restartCameras", (req, res) => {
-    console.log("Hitting restart");
-    const token = req.headers.authorization.split(" ")[1];
+     const token = req.headers.authorization.split(" ")[1];
     jwt.verify(token, "secretKey", (err, decodedToken) => {
       if (err) {
         return res.status(401).json({ error: "Invalid token" });
